@@ -1,0 +1,100 @@
+.header-cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-items: center;
+    margin: 0%;
+    list-style: none;
+  }
+  
+  .nav-item {
+    color: #fff;
+    margin-left: 20px;
+    font-family: Roboto;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .user-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+  
+  .logo {
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+  }
+
+  .welcome-cont {
+    padding-left: 10px;
+    font-weight: bold;
+  }
+
+  .name {
+    font-size: 40px;
+    margin: 0px;
+  }
+
+  .welcome {
+    font-size: 15px;
+    color: rgb(133, 133, 133);
+  }
+  
+  .nav-menu {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .logout-btn {
+    background-color: #4f46e5;
+    text-align: center;
+    color: #fff;
+    font-family: Roboto;
+    font-weight: bold;
+    border-color: transparent;
+    width: 85px;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+  }
+  
+  @media screen and (min-width: 576px) {
+    .nav-icon {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .logout-btn {
+      display: none;
+    }
+    .nav-item {
+      display: none;
+    }
+    .nav-icon {
+      color: #000000;
+      font-weight: bold;
+      margin-left: 15px;
+      font-size: 20px;
+    }
+    .logo {
+        height: 50px;
+        width: 50px;
+    }
+    .name{
+        font-size: 20px;
+    }
+    .welcome{
+        font-size: 10px;
+    }
+  }

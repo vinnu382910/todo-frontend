@@ -1,0 +1,54 @@
+
+.task-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .task-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    width: 95%;
+  }
+  
+  .task-box {
+    background-color: #9cc5e7;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    width: calc(20% - 15px); /* For desktop: 4 boxes in a row */
+  }
+
+  .box-shadow {
+    box-shadow: 4px 4px 6px rgb(15, 243, 57);
+  }
+  
+  .task-box h3 {
+    margin-bottom: 10px;
+    color: blueviolet;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .task-box p {
+    font-size: 32px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+  
+  /* Mobile devices */
+  @media (max-width: 768px) {
+    .task-box {
+      width: calc(50% - 20px); /* For mobile: 2 boxes in a row */
+    }
+    .task-box h3 {
+        font-size: 22px;;
+      }
+      .task-box p {
+        font-size: 22px;
+      }
+  }
+  
