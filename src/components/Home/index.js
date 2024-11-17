@@ -35,7 +35,7 @@ const Home = () => {
     const updateTaskStatus = async (taskId, updatedStatus) => {
         try {
             await axios.put(
-                `http://localhost:9090/tasks/${taskId}`,
+                `https://todo-backend-5453.onrender.com/tasks/${taskId}`,
                 { status: updatedStatus },
                 {
                     headers: {
@@ -54,7 +54,7 @@ const Home = () => {
     const deleteTask = async (taskId) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:9090/tasks/${taskId}`, {
+            await axios.delete(`https://todo-backend-5453.onrender.com/tasks/${taskId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -72,7 +72,7 @@ const Home = () => {
     const fetchTasks = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:9090/tasks', {
+            const response = await axios.get('https://todo-backend-5453.onrender.com/tasks', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -96,7 +96,7 @@ const Home = () => {
         try {
             const token = localStorage.getItem('token');
             await axios.post(
-                'http://localhost:9090/tasks',
+                'https://todo-backend-5453.onrender.com/tasks',
                 formData,
                 {
                     headers: {
