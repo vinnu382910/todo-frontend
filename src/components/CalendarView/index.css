@@ -1,0 +1,179 @@
+.calendar-view {
+    margin-bottom: 50px;
+    margin-left: 50px;
+}
+
+.react-calendar__tile {
+    color: black;
+}
+.react-calendar button {
+    margin: 5px;
+}
+
+.cal-heading {
+    font-weight: bold;
+    color: rgba(255, 0, 119, 0.771);
+}
+
+/** Color to display dates based on task status **/
+
+.completed {
+    background-color: #006400; /* Dark Green or Teal */
+}
+
+.inprogress {
+    background-color: #ff0000; /* Red */
+}
+
+.pending {
+    background-color: #ffa500; /* Orange */
+}
+
+.done {
+    background-color: #90ee90; /* Light Green */
+}
+
+.today {
+    background-color: #ffdd00; /* Yellow */
+}
+
+.multiple-tasks {
+    background-color: #0000ff; /* Blue for multiple tasks */
+}
+
+.react-calendar__tile {
+    background-color: rgb(103, 191, 246);
+    color: #000000;
+    font-weight: bold;
+}
+
+.react-calendar__navigation__label__labelText {
+    color: rgb(0, 204, 255);
+    font-weight: bold;
+}
+/* Default Styles */
+.calendar-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+/* Calendar styles */
+.react-calendar {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+}
+
+.react-calendar__navigation {
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0px;
+    height: 100%;
+    border-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.colors-boxes-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.box-cont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; 
+}
+.color-box {
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    color: rgba(255, 8, 0, 0.824);
+    text-decoration: none;
+}
+
+abbr[title]{
+    text-decoration: none;
+}
+/* Mobile and Tablet Styles */
+@media (max-width: 768px) {
+    .calendar-view {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .react-calendar {
+        width: 100%;
+        max-width: 100%;
+        font-size: 12px; /* Reduce font size on smaller devices */
+    }
+
+    .react-calendar__tile {
+        padding: 8px; /* Make tiles a little smaller */
+    }
+
+    h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+}
+
+/* Small Screen Devices (Mobile Phones) */
+@media (max-width: 480px) {
+    .calendar-view {
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .react-calendar {
+        max-width: 100%;
+        font-size: 10px; /* Further reduce font size on mobile */
+    }
+
+    .react-calendar__tile {
+        padding: 6px; /* Smaller tile padding for mobile */
+    }
+
+    h2 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+}
+
+
+/* Apply custom styles to calendar tiles */
+.react-calendar__tile {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.completed {
+    background-color: #006400; /* Dark Green or Teal */
+}
+
+.inprogress {
+    background-color: #ff0000; /* Red */
+}
+
+.pending {
+    background-color: #ffa500; /* Orange */
+}
+
+.done {
+    background-color: #90ee90; /* Light Green */
+}
+
+.today {
+    background-color: #ffff00; /* Yellow */
+}

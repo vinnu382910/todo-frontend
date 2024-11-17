@@ -40,15 +40,26 @@
   }
   
   /* Mobile devices */
-  @media (max-width: 768px) {
+  @media (max-width: 1060px) {
     .task-box {
       width: calc(50% - 20px); /* For mobile: 2 boxes in a row */
     }
     .task-box h3 {
-        font-size: 22px;;
+        font-size: 20px;;
       }
       .task-box p {
         font-size: 22px;
       }
   }
   
+@media (max-width: 480px) {
+  .task-box {
+    width: calc(50% - 20px); /* For mobile: 2 boxes in a row */
+   }
+  .task-box h3 {
+    font-size: 22px;;
+  }
+  .task-box p {
+     font-size: 22px;
+  }
+}

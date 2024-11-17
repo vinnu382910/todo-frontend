@@ -1,9 +1,6 @@
-.home-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.home {
+    background-color: #ffffffed;
+    opacity: 2;
 }
  
 .no-tasks {
@@ -16,11 +13,24 @@
     font-weight: bold;
 }
 
+.task-cal-cont {
+    display: flex;
+    flex-direction: row;
+}
+
 .task-list-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.show-cal-btn {
+    display: none;
+}
+
+.close-cal-btn {
+    display: none;
 }
 
 .btns-cont {
@@ -116,11 +126,57 @@
     border: 1px solid rgba(26, 26, 26, 0.5);
     color: rgba(255, 255, 255, 0.5);
 }
+.calendar-cont {
+    margin-left: 30px;
+    padding-top: 30px;
+}
 
-@media (max-width: 600px) {
+.calendar-cont-mobile {
+    display: none;
+}
+
+@media (max-width: 780px) {
+    .calendar-cont{
+        display: none;
+    }
+    .show-cal-btn {
+        display: block;
+        background-color: transparent;
+        color: #ff9d00;
+        font-weight: bold;
+        border: 2px solid #000;
+        height: 50px;
+        width: 170px;
+        margin-left: 50px;
+    }
+
+    .close-cal-btn{
+        display: block;
+        background-color: #ff9900e2;
+        color: #ffffff;
+        font-weight: bold;
+        height: 50px;
+        width: 170px;
+        margin-left: 50px;
+    }
+  
+    .calendar-cont-mobile {
+        display: block;
+    }
     .btn-text{
         display: none;
     }
+    .task-cal-cont{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .calendar-cont {
+        order: 1;
+    }
+    .task-list-container {
+        order: 0;
+    }
+
 }
 
 /* Popup Form To Add Tasks */
@@ -218,8 +274,8 @@
 }
 
 .status-results {
-    color: rgb(25, 0, 255);
-    font-weight: 500;
+    color: rgb(0, 177, 27);
+    font-weight: bold;
 }
 
 .task-updated {
@@ -229,8 +285,13 @@
 }
 
 .updated-res {
-    color: rgb(255, 0, 0);
+    color: rgb(0, 8, 255);
     font-weight: 500;
+}
+
+.deadline-res {
+    color: red;
+    font-weight: bold;
 }
 
 .task-status-select {
@@ -271,3 +332,81 @@
     cursor: pointer;
     padding-top: 5px;
 }
+
+/* Loader */
+
+/* From Uiverse.io by SchawnnahJ */ 
+.loader {
+    position: relative;
+    width: 2.5em;
+    height: 2.5em;
+    transform: rotate(165deg);
+   }
+   
+   .loader:before, .loader:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    transform: translate(-50%, -50%);
+   }
+   
+   .loader:before {
+    animation: before8 2s infinite;
+   }
+   
+   .loader:after {
+    animation: after6 2s infinite;
+   }
+   
+   @keyframes before8 {
+    0% {
+     width: 0.5em;
+     box-shadow: 1em -0.5em rgba(225, 20, 98, 0.75), -1em 0.5em rgba(111, 202, 220, 0.75);
+    }
+   
+    35% {
+     width: 2.5em;
+     box-shadow: 0 -0.5em rgba(225, 20, 98, 0.75), 0 0.5em rgba(111, 202, 220, 0.75);
+    }
+   
+    70% {
+     width: 0.5em;
+     box-shadow: -1em -0.5em rgba(225, 20, 98, 0.75), 1em 0.5em rgba(111, 202, 220, 0.75);
+    }
+   
+    100% {
+     box-shadow: 1em -0.5em rgba(225, 20, 98, 0.75), -1em 0.5em rgba(111, 202, 220, 0.75);
+    }
+   }
+   
+   @keyframes after6 {
+    0% {
+     height: 0.5em;
+     box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75);
+    }
+   
+    35% {
+     height: 2.5em;
+     box-shadow: 0.5em 0 rgba(61, 184, 143, 0.75), -0.5em 0 rgba(233, 169, 32, 0.75);
+    }
+   
+    70% {
+     height: 0.5em;
+     box-shadow: 0.5em -1em rgba(61, 184, 143, 0.75), -0.5em 1em rgba(233, 169, 32, 0.75);
+    }
+   
+    100% {
+     box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75);
+    }
+   }
+   
+   .loader {
+    position: absolute;
+    top: calc(50% - 1.25em);
+    left: calc(50% - 1.25em);
+   }

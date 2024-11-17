@@ -28,7 +28,7 @@ const Header = props => {
                     className="logo"
                 />
                 <div className='welcome-cont'>
-                    <p className='name'>Hii, {name} <span>👋</span></p>
+                    <p className='name'>Hii, <span  style={{ color: '#24822ce2' }}>{name}</span> 👋</p>
                     <p className='welcome'><span style={{ color: 'blue' }}>Welcome!</span> Each task brings you closer to your goals.</p>
 
                 </div>

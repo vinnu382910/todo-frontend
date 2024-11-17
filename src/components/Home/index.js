@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../Header';
 import TaskInfo from '../TaskInfo';
+import CalendarView from '../CalendarView';
 import Popup from 'reactjs-popup';
 import { ToastContainer } from "react-toastify";
 import 'reactjs-popup/dist/index.css'; // Import the Popup styles
@@ -14,19 +15,27 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false); // Popup state
+    const [showCalendar, setShowCalendar] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
         status: 'pending',
+        deadline: '', // New field for deadline
     });
+
+    // Update input handling for the deadline
+    const onChangeInput = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     //Function to update status
 
     const updateTaskStatus = async (taskId, updatedStatus) => {
         try {
             await axios.put(
-                `https://todo-backend-5453.onrender.com/tasks/${taskId}`,
+                `http://localhost:9090/tasks/${taskId}`,
                 { status: updatedStatus },
                 {
                     headers: {
@@ -45,13 +54,15 @@ const Home = () => {
     const deleteTask = async (taskId) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`https://todo-backend-5453.onrender.com/tasks/${taskId}`, {
+            await axios.delete(`http://localhost:9090/tasks/${taskId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            setLoading(false)
             fetchTasks(); // Refresh task list after deletion
         } catch (error) {
+            setLoading(false)
             setError('Failed to delete task');
             console.error('Error deleting task:', error); // Log the error for debugging
         }
@@ -61,7 +72,7 @@ const Home = () => {
     const fetchTasks = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('https://todo-backend-5453.onrender.com/tasks', {
+            const response = await axios.get('http://localhost:9090/tasks', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -79,19 +90,13 @@ const Home = () => {
         fetchTasks();
     }, []);
 
-    // Handle form input change
-    const onChangeInput = (event) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
     // Handling form submission (POST API call)
     const onAddTask = async (e) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
             await axios.post(
-                'https://todo-backend-5453.onrender.com/tasks',
+                'http://localhost:9090/tasks',
                 formData,
                 {
                     headers: {
@@ -107,14 +112,19 @@ const Home = () => {
             setError('Failed to add task');
             console.error('Error adding task:', error); // Log the error for debugging
         }
-    };    
+    };   
+    
+    // Showing Calendar for mobile device which are less than 780px media width
+    const toggleCalendar = () => {
+        setShowCalendar((prevState) => !prevState);
+      };
 
     // Filter tasks based on selectedStatus
     const filteredTasks = selectedStatus
         ? tasks.filter(task => task.status === selectedStatus)
         : tasks;
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <div class="loader"></div>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -139,43 +149,52 @@ const Home = () => {
                     </button>
                 </div>
                 {/* Popup Form */}
-                <Popup contentStyle={{
-                                            padding: '0px',
-                                            width: '400px',
-                                            border: 'none',
-                                            background: 'azure',
-                                            borderRadius: '10px',
-                                        }} open={isPopupOpen} closeOnDocumentClick onClose={() => setIsPopupOpen(false)}>
+                <Popup
+                    contentStyle={{
+                        padding: '0px',
+                        width: '400px',
+                        border: 'none',
+                        background: 'azure',
+                        borderRadius: '10px',
+                    }}
+                    open={isPopupOpen}
+                    closeOnDocumentClick
+                    onClose={() => setIsPopupOpen(false)}
+                >
                     <div className="popup-form-cont">
-                        <button className="close-btn" onClick={() => setIsPopupOpen(false)}><IoIosCloseCircle /></button>
+                        <button className="close-btn" onClick={() => setIsPopupOpen(false)}>
+                            <IoIosCloseCircle />
+                        </button>
                         <h3>Add Task</h3>
                         <form onSubmit={onAddTask}>
-                            <label className='input-label'>
+                            <label className="input-label">
                                 Title:<br />
                                 <input
-                                    className='input-title'
+                                    className="input-title"
                                     type="text"
                                     name="title"
                                     value={formData.title}
                                     onChange={onChangeInput}
-                                    placeholder='Enter Title'
+                                    placeholder="Enter Title"
                                     required
                                 />
-                            </label><br />
-                            <label className='input-label'>
+                            </label>
+                            <br />
+                            <label className="input-label">
                                 Description:<br />
                                 <textarea
-                                    className='input-desc'
+                                    className="input-desc"
                                     name="description"
                                     value={formData.description}
                                     onChange={onChangeInput}
                                     required
                                 />
-                            </label><br />
-                            <label className='input-label'>
+                            </label>
+                            <br />
+                            <label className="input-label">
                                 Status:<br />
                                 <select
-                                    className='input-title'
+                                    className="input-title"
                                     name="status"
                                     value={formData.status}
                                     onChange={onChangeInput}
@@ -185,44 +204,89 @@ const Home = () => {
                                     <option value="done">Done</option>
                                     <option value="completed">Completed</option>
                                     <option value="pending">Pending</option>
-                                </select><br />
+                                </select>
+                                <br />
                             </label>
-                            <button type="submit" className='create-task-btn'>Add Task</button>
+                            <label className="input-label">
+                                Deadline:<br />
+                                <input
+                                    className="input-title"
+                                    type="date"
+                                    name="deadline"
+                                    value={formData.deadline || ''}
+                                    onChange={onChangeInput}
+                                    required
+                                />
+                            </label>
+                            <br />
+                            <button type="submit" className="create-task-btn">
+                                Add Task
+                            </button>
                         </form>
                     </div>
                 </Popup>
             </div>
-            <div className='task-main-cont'>
-                <h2 className='task-heading'>Your Tasks</h2>
-                {tasks.length > 0 ? (
-                    <div className="task-list-container">
-                        {filteredTasks.map((task) => (
-                            <div key={task._id} className="task-box-cont">
-                                <div className='tittle-cont'>
-                                    <h3 className="task-title">{task.title}</h3>
-                                    <div>
-                                        <button className='delete-btn' onClick={() => deleteTask(task._id)}><MdDelete /></button>
+            <button className={showCalendar?'close-cal-btn':'show-cal-btn'} onClick={toggleCalendar}>
+                {showCalendar? 'Close Calendar' : 'Show Calendar'}
+            </button>
+            <div className='task-cal-cont'>
+                <div className='task-main-cont'>
+                    <h2 className='task-heading'>Your Tasks</h2>
+                    {tasks.length > 0 ? (
+                        <div className="task-list-container">
+                            {filteredTasks.map((task) => (
+                                <div key={task._id} className="task-box-cont">
+                                    <div className="tittle-cont">
+                                        <h3 className="task-title">{task.title}</h3>
+                                        <div>
+                                            <button className="delete-btn" onClick={() => deleteTask(task._id)}>
+                                                <MdDelete />
+                                            </button>
+                                        </div>
                                     </div>
+                                    <p className="task-desc">{task.description}</p>
+                                    <p className="task-status">
+                                        Status: <span className="status-results">{task.status}</span>
+                                    </p>
+                                    <p className="task-status">
+                                        Updated At: <span className="updated-res">{new Date(task.updatedAt).toLocaleString()}</span>
+                                    </p>
+                                    <p className="task-status">
+                                        Deadline: <span className="deadline-res"> {(() => {
+                                                            const date = new Date(task.deadline);
+                                                            const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+                                                            const day = String(date.getDate()).padStart(2, '0');
+                                                            const year = date.getFullYear();
+                                                            return `${day}/${month}/${year}`;
+                                                        })()}
+                                                    </span>
+                                    </p>
+                                    <select
+                                        className="update-status"
+                                        value={task.status}
+                                        onChange={(e) => updateTaskStatus(task._id, e.target.value)}
+                                    >
+                                        <option value="in progress">In Progress</option>
+                                        <option value="done">Done</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
                                 </div>
-                                <p className="task-desc">{task.description}</p>
-                                <p className="task-status">Status: <span className='status-results'>{task.status}</span></p>
-                                <p className="task-updated">Updated At: <span className='updated-res'>{new Date(task.updatedAt).toLocaleString()}</span></p>
-                                <select
-                                className='update-status'
-                                value={task.status}
-                                onChange={(e) => updateTaskStatus(task._id, e.target.value)}
-                            >
-                                <option value="in progress">In Progress</option>
-                                <option value="done">Done</option>
-                                <option value="completed">Completed</option>
-                                <option value="pending">Pending</option>
-                            </select>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p className='no-tasks'>No tasks found! <span className='no-span'>Add your tasks today and challenge yourself—small steps lead to big progress.</span></p>
-                )}
+                            ))}
+                        </div>
+                    ) : (
+                        <p className='no-tasks'>No tasks found! <span className='no-span'>Add your tasks today and challenge yourself—small steps lead to big progress.</span></p>
+                    )}
+                </div>
+                {
+                    showCalendar? (                
+                    <div className='calendar-cont-mobile'>
+                        <CalendarView tasks={filteredTasks} />
+                    </div>) : null
+                }
+                <div className='calendar-cont'>
+                    <CalendarView tasks={filteredTasks} />
+                </div>
             </div>
             <ToastContainer/>
         </div>
