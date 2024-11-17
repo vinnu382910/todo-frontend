@@ -26,7 +26,7 @@ const Signup = () => {
             handleError('email and password are required!')
         }
         try {
-            const url = "http://localhost:9090/auth/login";
+            const url = "https://todo-backend-5453.onrender.com/auth/login";
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
